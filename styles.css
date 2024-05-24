@@ -1,0 +1,188 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+:root {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  box-shadow: 1px 1px 12px 1px rgb(204, 199, 199);
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+header #leftContanier {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+#rightContainer {
+  display: flex;
+  align-self: flex-end;
+  gap: 8px;
+  align-items: center;
+  width: 30%;
+}
+
+#rightContainer svg:hover {
+  cursor: pointer;
+}
+
+#rightContainer input {
+  border-radius: 25px;
+  border: none;
+  background-color: rgba(233, 231, 231, 0.993);
+  padding: 8px 14px;
+  width: 100%;
+}
+
+#rightContainer input:focus {
+  outline: none;
+}
+
+#card {
+  padding: 12px;
+  box-shadow: 1px 1px 13px 1px rgb(162, 159, 159);
+  width: fit-content;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border-radius: 25px;
+  height: fit-content;
+}
+
+#card img {
+  width: 250px;
+  height: 400px;
+  border-radius: 25px;
+}
+
+#newBook {
+  background-color: white;
+  border: none;
+  box-shadow: 1px 1px 13px 1px rgb(162, 159, 159);
+  padding: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+#newBook:hover {
+  box-shadow: 1px 1px 13px 1px rgb(75, 74, 74);
+  cursor: pointer;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 0.5fr 1fr;
+  align-items: start;
+  gap: 12px;
+  padding: 25px;
+}
+
+#card div {
+  display: flex;
+  grid-template-columns: 0.4fr;
+  align-items: center;
+  align-content: center;
+  column-gap: 12px;
+}
+
+#cardsContainer {
+  display: flex;
+  gap: 24px;
+}
+
+#statusContainer span{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+#getUserDetails {
+  display: grid;
+  grid-template-columns: 0.4fr;
+  gap: 12px;
+}
+
+dialog[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 25px;
+  padding: 24px;
+  align-self: center;
+  justify-self: center;
+}
+
+dialog svg {
+  align-self: end;
+}
+
+dialog svg:hover {
+  cursor: pointer;
+}
+
+#addButton {
+  border-radius: 4px;
+}
+#getUserDetails input {
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+
+#deleteButton:hover {
+  cursor: pointer;
+}

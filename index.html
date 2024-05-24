@@ -1,13 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    
-</body>
-<script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section>
+      <header>
+        <div id="leftContanier">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2rem"
+            height="2rem"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-library-big"
+          >
+            <rect width="8" height="18" x="3" y="3" rx="1" />
+            <path d="M7 3v18" />
+            <path
+              d="M20.4 18.9c.2.5-.1 1.1-.6 1.3l-1.9.7c-.5.2-1.1-.1-1.3-.6L11.1 5.1c-.2-.5.1-1.1.6-1.3l1.9-.7c.5-.2 1.1.1 1.3.6Z"
+            />
+          </svg>
+          <h1>Library</h1>
+        </div>
+        <div id="rightContainer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="2em"
+            height="2em"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M15.096 5.904a6.5 6.5 0 1 0-9.192 9.192a6.5 6.5 0 0 0 9.192-9.192M4.49 4.49a8.5 8.5 0 0 1 12.686 11.272l5.345 5.345l-1.414 1.414l-5.345-5.345A8.501 8.501 0 0 1 4.49 4.49"
+            />
+          </svg>
+          <input type="search" />
+        </div>
+      </header>
+      <main>
+        <div id="formContainer">
+          <button id="newBook">New book</button>
+          <dialog>
+            <svg id="closeButton" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 40 40"><path fill="currentColor" d="M21.499 19.994L32.755 8.727a1.064 1.064 0 0 0-.001-1.502c-.398-.396-1.099-.398-1.501.002L20 18.494L8.743 7.224c-.4-.395-1.101-.393-1.499.002a1.05 1.05 0 0 0-.309.751c0 .284.11.55.309.747L18.5 19.993L7.245 31.263a1.064 1.064 0 0 0 .003 1.503c.193.191.466.301.748.301h.006c.283-.001.556-.112.745-.305L20 21.495l11.257 11.27c.199.198.465.308.747.308a1.058 1.058 0 0 0 1.061-1.061c0-.283-.11-.55-.31-.747z"/></svg>
+            <form id="getUserDetails">
+              <div><label for="authorName">Author </label><input type="text" id="authorName" ></div>
+              <div>
+                <label for="title">Title </label>
+                <input type="text" id="title">
+              </div>
+              <div>
+                <label for="pagesRead">Pages read </label>
+                <input type="text" id="pagesRead">
+              </div>
+              <div><button id="addButton">Add</button></div>
+            </form>
+            </dialog>
+        </div>
+        <div id="cardsContainer">
+        </div>
+      </main>
+    </section>
+  </body>
+  <script src="script.js"></script>
 </html>
