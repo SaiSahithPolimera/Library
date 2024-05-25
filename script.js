@@ -29,6 +29,7 @@ function Book(author, title, pagesRead, isCompleted) {
   return book;
 }
 
+let readButtonToggle = false;
 Book.prototype.addBookToLibrary = function (
   author,
   title,
@@ -70,6 +71,7 @@ addButton.addEventListener("click", (event) => {
   checkBox.checked = 0;
 });
 
+
 function addListeners() {
   const Buttons = document.querySelectorAll("[class='deleteButton']");
   Buttons.forEach((button) => {
@@ -78,6 +80,18 @@ function addListeners() {
       generateCards();
       addListeners();
     });
+  });
+  const readButtons = document.querySelectorAll("[id='readButton']");
+  readButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if(readButtonToggle) {
+      button.style.color = "green";
+      readButtonToggle = false;
+    }
+    else {
+      button.style.color = "Black";
+      readButtonToggle = true;
+    }});
   });
 }
 
@@ -93,6 +107,7 @@ function generateCards() {
       book.isCompleted == 1
         ? `<svg
     xmlns="http://www.w3.org/2000/svg"
+    id="readButton"
     width="2rem"
     height="2rem"
     viewBox="0 0 24 24"

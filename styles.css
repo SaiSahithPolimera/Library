@@ -203,6 +203,11 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 0.91rem;
 }
 
+
+#readButton:hover {
+cursor: pointer;
+} 
+
 input[type="checkbox"] {
   accent-color: hsl(106, 84%, 50%);
   color: white;
