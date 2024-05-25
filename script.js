@@ -11,32 +11,33 @@ buildingASecondBrain = {
 };
 
 theHobbit = {
-    author: "J.R.R Toliken",
-    title: "The Hobbit",
-    pagesRead:  295,
+  author: "J.R.R Toliken",
+  title: "The Hobbit",
+  pagesRead: 295,
 };
 
-const myLibrary = [atomicHabits, buildingASecondBrain, theHobbit];
+const myLibrary = [];
 
-function Book(author, title, pagesRead) {
-    alert("Don't ever give up");
-    this.author = author;
-    this.title = title;
-    this.pagesRead = pagesRead;
+Object.setPrototypeOf(Book, myLibrary);
+
+function Book(author, title, pagesRead, isCompleted) {
+  const book = {};
+  book.author = author;
+  book.title = title;
+  book.pagesRead = Number(pagesRead);
+  book.isCompleted = Number(isCompleted);
+  return book;
 }
 
-Book.prototype = addBookToLibrary.prototype;
-
-function addBookToLibrary() {
-    alert("Here I am")
-    let author = (authorName.value);
-    let title = (title.value);
-    let pagesRead = (pagesRead.value);
-    const book = new Book(author, title, pagesRead);
-    alert("Here I AM AFTER CREATING THE BOOK")
-    myLibrary.push(book);
-    alert(myLibrary);
-}
+Book.prototype.addBookToLibrary = function (
+  author,
+  title,
+  pagesRead,
+  isCompleted
+) {
+  const book = new Book(author, title, pagesRead, isCompleted);
+  myLibrary.push(book);
+};
 
 const dialog = document.querySelector("dialog");
 const newBook = document.getElementById("newBook");
@@ -46,24 +47,68 @@ const authorName = document.getElementById("authorName");
 const title = document.getElementById("title");
 const pagesRead = document.getElementById("pagesRead");
 const mainSection = document.getElementById("cardsContainer");
-const deleteButton = document.getElementById("deleteButton");
+const checkBox = document.getElementById("status");
 
 newBook.addEventListener("click", () => {
   dialog.showModal();
 });
 
+addButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  dialog.close();
+  Book.prototype.addBookToLibrary(
+    authorName.value,
+    title.value,
+    pagesRead.value,
+    checkBox.checked
+  );
+  generateCards();
+  addListeners();
+  authorName.value = "";
+  title.value = "";
+  pagesRead.value = "";
+  checkBox.checked = 0;
+});
+
+function addListeners() {
+  const Buttons = document.querySelectorAll("[class='deleteButton']");
+  Buttons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      myLibrary.splice(event.target.id, 1);
+      generateCards();
+      addListeners();
+    });
+  });
+}
 
 closeButton.addEventListener("click", () => {
   dialog.close();
 });
 
-
-addButton.addEventListener("click", addBookToLibrary);
-
-myLibrary.forEach((book) => {});
-window.onload = () => {
+function generateCards() {
   let htmlCode = ``;
+  let id = 0;
   myLibrary.forEach((book) => {
+    let status =
+      book.isCompleted == 1
+        ? `<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="2rem"
+    height="2rem"
+    viewBox="0 0 24 24"
+  >
+    <g
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.5"
+    >
+      <path d="m4 12.9l3.143 3.6L15 7.5" opacity="0.5" />
+      <path d="m20 7.563l-8.571 9L11 16" />
+    </g></svg>
+`
+        : ``;
     htmlCode +=
       ` <div id="card">
         <div>
@@ -99,26 +144,18 @@ window.onload = () => {
         </div>
         <div id="statusContainer">
           <span
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="2rem"
-              height="2rem"
-              viewBox="0 0 24 24"
-            >
-              <g
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-              >
-                <path d="m4 12.9l3.143 3.6L15 7.5" opacity="0.5" />
-                <path d="m20 7.563l-8.571 9L11 16" />
-              </g></svg
-          >
-          <svg xmlns="http://www.w3.org/2000/svg" id="deleteButton" width="2rem" height="2rem" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1"/></svg></span>
+            >` +
+      status +
+      `
+          <svg xmlns="http://www.w3.org/2000/svg" class="deleteButton" id=` +
+      id +
+      ` width="2rem" height="2rem" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1"/></svg></span>
         </div>
       </div>`;
+    id++;
   });
   mainSection.innerHTML = htmlCode;
-};
+}
+
+generateCards();
+addListeners();

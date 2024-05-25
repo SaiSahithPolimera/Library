@@ -183,6 +183,28 @@ dialog svg:hover {
   padding: 8px 14px;
 }
 
-#deleteButton:hover {
+.deleteButton:hover {
   cursor: pointer;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+#bookProgress{
+  display: flex;
+  align-items: center;
+}
+
+#bookProgress label {
+  padding: 12px;
+  font-size: 0.91rem;
+}
+
+input[type="checkbox"] {
+  accent-color: hsl(106, 84%, 50%);
+  color: white;
+  transform: scale(1.6);
 }
