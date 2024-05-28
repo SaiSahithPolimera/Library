@@ -1,44 +1,17 @@
-atomicHabits = {
-  author: "James Clear",
-  title: "Atomic Habits",
-  pagesRead: 25,
-};
+const Library = [];
 
-buildingASecondBrain = {
-  author: "Tiago Forte",
-  title: "Building a Second brain",
-  pagesRead: 15,
-};
-
-theHobbit = {
-  author: "J.R.R Toliken",
-  title: "The Hobbit",
-  pagesRead: 295,
-};
-
-const myLibrary = [];
-
-Object.setPrototypeOf(Book, myLibrary);
-
-function Book(author, title, pagesRead, isCompleted) {
-  const book = {};
-  book.author = author;
-  book.title = title;
-  book.pagesRead = Number(pagesRead);
-  book.isCompleted = Number(isCompleted);
-  return book;
+class Book {
+  book = {};
+  constructor(author, title, pagesRead, isCompleted) {
+    this.book.author = author;
+    this.book.title = title;
+    this.book.pagesRead = pagesRead;
+    this.book.isCompleted = isCompleted;
+    Library.push(this.book);
+  }
 }
 
 let readButtonToggle = false;
-Book.prototype.addBookToLibrary = function (
-  author,
-  title,
-  pagesRead,
-  isCompleted
-) {
-  const book = new Book(author, title, pagesRead, isCompleted);
-  myLibrary.push(book);
-};
 
 const dialog = document.querySelector("dialog");
 const newBook = document.getElementById("newBook");
@@ -57,12 +30,11 @@ newBook.addEventListener("click", () => {
 addButton.addEventListener("click", (event) => {
   event.preventDefault();
   dialog.close();
-  Book.prototype.addBookToLibrary(
-    authorName.value,
-    title.value,
-    pagesRead.value,
-    checkBox.checked
-  );
+  if (authorName.value === "" || title.value === "" || pagesRead.value === "") {
+    alert("Please Fill all the fields");
+    return;
+  }
+  new Book(authorName.value, title.value, pagesRead.value, checkBox.checked);
   generateCards();
   addListeners();
   authorName.value = "";
@@ -71,27 +43,27 @@ addButton.addEventListener("click", (event) => {
   checkBox.checked = 0;
 });
 
-
 function addListeners() {
   const Buttons = document.querySelectorAll("[class='deleteButton']");
   Buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
-      myLibrary.splice(event.target.id, 1);
+      Library.splice(event.target.id, 1);
       generateCards();
       addListeners();
     });
   });
+
   const readButtons = document.querySelectorAll("[id='readButton']");
   readButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    if(readButtonToggle) {
-      button.style.color = "green";
-      readButtonToggle = false;
-    }
-    else {
-      button.style.color = "Black";
-      readButtonToggle = true;
-    }});
+    button.addEventListener("click", () => {
+      if (readButtonToggle) {
+        button.style.color = "green";
+        readButtonToggle = false;
+      } else {
+        button.style.color = "Black";
+        readButtonToggle = true;
+      }
+    });
   });
 }
 
@@ -102,7 +74,7 @@ closeButton.addEventListener("click", () => {
 function generateCards() {
   let htmlCode = ``;
   let id = 0;
-  myLibrary.forEach((book) => {
+  Library.forEach((book) => {
     let status =
       book.isCompleted == 1
         ? `<svg
