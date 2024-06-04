@@ -22,25 +22,92 @@ const title = document.getElementById("title");
 const pagesRead = document.getElementById("pagesRead");
 const mainSection = document.getElementById("cardsContainer");
 const checkBox = document.getElementById("status");
+const hightFiveImage = document.getElementById("highFiveIcon");
+let timeout;
+
+const authorNameError = document.querySelector(
+  "#authorName + span.error-message"
+);
+const titleError = document.querySelector("#title + span.error-message");
+const pagesReadError = document.querySelector(
+  "#pagesRead + span.error-message"
+);
 
 newBook.addEventListener("click", () => {
   dialog.showModal();
 });
 
-addButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  dialog.close();
-  if (authorName.value === "" || title.value === "" || pagesRead.value === "") {
-    alert("Please Fill all the fields");
-    return;
+authorName.addEventListener("input", (event) => {
+  if (authorName.validity.valueMissing) {
+    authorNameError.textContent = "Enter an author name to continue ";
+    authorNameError.className += " active";
+  } else if (authorName.validity.tooShort) {
+    authorNameError.textContent = "Author name was too short";
+    authorNameError.className += " active";
+  } else if (authorName.validity.tooLong) {
+    authorNameError.textContent = "An author name can't be this long";
+    authorNameError.className += " active";
+  } else {
+    authorNameError.textContent = "";
+    authorNameError.className = "error-message";
   }
-  new Book(authorName.value, title.value, pagesRead.value, checkBox.checked);
-  generateCards();
-  addListeners();
-  authorName.value = "";
-  title.value = "";
-  pagesRead.value = "";
-  checkBox.checked = 0;
+});
+
+const getValidity = () => {
+  return (
+    authorName.validity.valid &&
+    title.validity.valid &&
+    pagesRead.validity.valid
+  );
+};
+
+title.addEventListener("input", (event) => {
+  if (title.validity.valueMissing) {
+    titleError.textContent = "Enter a title of the book ";
+    titleError.className += " active";
+  } else if (title.validity.tooShort) {
+    titleError.textContent = "Book name was too short";
+    titleError.className += " active";
+  } else if (title.validity.tooLong) {
+    titleError.textContent = "Book name was too long can you shorten it!";
+    titleError.className += " active";
+  } else {
+    titleError.textContent = "";
+    titleError.className = "error-message";
+  }
+});
+
+pagesRead.addEventListener("input", (event) => {
+  if (pagesRead.validity.valueMissing) {
+    pagesReadError.textContent =
+      "Can you enter the number of pages you've read?";
+      pagesReadError.className += " active";
+    } else if (pagesRead.validity.rangeUnderflow) {
+      pagesReadError.textContent = "Hey! Only books you've read will go in";
+      pagesReadError.className += " active";
+    } else {
+      pagesReadError.textContent = "";
+    pagesReadError.className = "error-message";
+  }
+});
+
+addButton.addEventListener("click", (event) => {
+  clearTimeout(timeout);
+  event.preventDefault();
+  if (getValidity()) {
+    dialog.close();
+    new Book(authorName.value, title.value, pagesRead.value, checkBox.checked);
+    generateCards();
+    addListeners();
+    authorName.value = "";
+    title.value = "";
+    pagesRead.value = "";
+    checkBox.checked = 0;
+    hightFiveImage.style.display = "block";
+    timeout = setTimeout(() => {
+      hightFiveImage.style.display = "none";
+    }, 1000);
+  }
 });
 
 function addListeners() {

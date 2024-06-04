@@ -213,3 +213,35 @@ input[type="checkbox"] {
   color: white;
   transform: scale(1.6);
 }
+
+.error-message {
+  width: 90%;
+  margin-left: 6px;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0 0 5px 5px;
+  height: 30px;
+  background-color: rgba(242, 68, 68, 0.958);
+  padding: 0;
+  display: none;
+  color: white;
+}
+
+.error-message.active {
+  display: flex;
+  padding: 10px;
+  transition: 0.9s ease-in-out;
+}
+
+#highFiveIcon {
+  align-self: center;
+  justify-self: center;
+  background-color: red;
+  border: 6px solid black;
+  width: 100px;
+  /* display: block; */
+  display: none;
+  border-radius: 50%;
+  height: 100px;
+}
